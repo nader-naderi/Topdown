@@ -62,11 +62,11 @@ void Player::init()
 
     Weapon handgun = { WeaponType::Handgun };
 
-    handgun.setAnimation(PlayerState::Idle, { "handgun_idle", 20, 0.1 });
-    handgun.setAnimation(PlayerState::MeleeAttack, { "handgun_melee_attack", 15, 0.1 });
-    handgun.setAnimation(PlayerState::Move, { "handgun_move", 20, 0.1 });
-    handgun.setAnimation(PlayerState::Reload, { "handgun_reload", 15, 0.1 });
-    handgun.setAnimation(PlayerState::Shoot, { "handgun_shoot", 3, 0.1 });
+    handgun.setAnimation(HumanState::Idle, { "handgun_idle", 20, 0.1 });
+    handgun.setAnimation(HumanState::MeleeAttack, { "handgun_melee_attack", 15, 0.1 });
+    handgun.setAnimation(HumanState::Move, { "handgun_move", 20, 0.1 });
+    handgun.setAnimation(HumanState::Reload, { "handgun_reload", 15, 0.1 });
+    handgun.setAnimation(HumanState::Shoot, { "handgun_shoot", 3, 0.1 });
     
     weapons.push_back(handgun);
 }

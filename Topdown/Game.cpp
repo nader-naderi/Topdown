@@ -25,6 +25,7 @@ void Game::InitVariables()
 	ResourceManager::getInstance().load("assets/textures/Tiles/backgrounddetailed1.png", "tile1");
 	tile.setTexture(ResourceManager::getInstance().getTexture("tile1"));
 	tile.setPosition(0, 0);
+
 }
 
 void Game::InitWindow()
@@ -77,6 +78,7 @@ void Game::Update()
 	deltaTime = elapsedTime.asSeconds();
 
 	player.update(deltaTime);
+	enemy.update(deltaTime);
 
 	this->PollEvents();
 	this->UpdateMousePositions();
@@ -87,6 +89,7 @@ void Game::Render()
 	this->window->clear();
 	
 	player.draw(*window);
+	enemy.draw(*window);
 
 	this->window->display();
 }

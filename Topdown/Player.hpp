@@ -13,13 +13,14 @@ class AnimationSystem;
 class Player
 {
     enum class WeaponType { Flashlight, Handgun, Knife, Rifle, Shotgun };
-    enum class PlayerState { Idle, MeleeAttack, Move, Reload, Shoot };
+    enum class HumanState { Idle, MeleeAttack, Move, Reload, Shoot };
+
 
     struct Weapon {
         WeaponType type;
-        std::map<PlayerState, AnimationData> animations;
+        std::map<HumanState, AnimationData> animations;
 
-        void setAnimation(PlayerState state, AnimationData animation) {
+        void setAnimation(HumanState state, AnimationData animation) {
             animations.emplace(state, animation);
         }
     };
@@ -31,8 +32,6 @@ public:
         animation.update(deltaTime, currentWeapon.animations[currentState].frameDuration,
             currentWeapon.animations[currentState].frameCount);
     }
-
-    
 
     void draw(sf::RenderWindow& window) {
         // Draw the current animation frame for the current state
@@ -51,7 +50,7 @@ public:
         }
     }
 
-    void changeState(PlayerState newState) {
+    void changeState(HumanState newState) {
         currentState = newState;
         // Reset the frame and frame timer when changing states
         animation.resetFrame();
@@ -64,9 +63,7 @@ private:
 
     int currentWeaponIndex = -1;
 	Weapon currentWeapon;
-	PlayerState currentState;
-
-	
+	HumanState currentState;
 
 	std::vector<Weapon> weapons;
 

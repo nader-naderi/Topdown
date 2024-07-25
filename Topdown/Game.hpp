@@ -1,6 +1,7 @@
 #pragma once
 #include<SFML/Graphics.hpp>
 #include "Player.hpp"
+#include "Enemy.hpp"
 
 class Game
 {
@@ -16,6 +17,7 @@ private:
 	float deltaTime;
 	sf::Sprite tile;
 	Player player = { 0 };
+	Enemy enemy;
 
 	void InitVariables();
 	void InitWindow();
