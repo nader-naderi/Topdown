@@ -7,13 +7,14 @@ Enemy::Enemy()
 
     sprite.setOrigin(sf::Vector2f(0.0f, 0.0f));  // Adjust the origin as needed
     sprite.setPosition(1280 / 4, 720 / 4);  // Set the player's position (x, y)
+    sprite.setScale(0.5f, 0.5f);
 }
 
 Enemy::~Enemy()
 {
 }
 
-void Enemy::update(float deltaTime)
+void Enemy::Update(float deltaTime)
 {
 	animation.update(deltaTime, 
         currentAnimaitonData().frameDuration,
@@ -31,6 +32,12 @@ void Enemy::draw(sf::RenderWindow& window)
     // Set the sprite's position, scale, etc.
     sprite.setTexture(texture);
     window.draw(sprite);
+}
+
+void Enemy::changeState(ZombieState newState)
+{
+    currentState = newState;
+    animation.resetFrame();
 }
 
 void Enemy::init()
@@ -59,7 +66,7 @@ void Enemy::init()
         );
     }
 
-    AnimationData idle = { "skeleton-idle", 17, 0.1 };
+    AnimationData idle = { "skeleton-idle", 17, 0.05 };
     AnimationData move = { "skeleton-move", 17, 0.1 };
     AnimationData attack = { "skeleton-attack", 9, 0.1 };
 

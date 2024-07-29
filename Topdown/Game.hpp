@@ -2,16 +2,14 @@
 #include<SFML/Graphics.hpp>
 #include "Player.hpp"
 #include "Enemy.hpp"
+#include "InputManager.h"
 
 class Game
 {
 private:
 	sf::RenderWindow* window;
-	sf::Event m_event;
 
-	sf::Vector2i m_mousePositionWindow;
-	sf::Vector2f m_mousePositionView;
-	bool mouseHeld;
+	
 	sf::Clock clock;
 	sf::Time elapsedTime;
 	float deltaTime;
@@ -27,10 +25,6 @@ public:
 	virtual ~Game();
 
 	const bool IsRunning() const;
-	void UpdateMousePositions();
-	void HandlePlayerClickCheck();
-
-	void PollEvents();
 	
 	void Update();
 	void Render();

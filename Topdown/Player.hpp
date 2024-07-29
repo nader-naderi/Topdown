@@ -1,63 +1,29 @@
 #pragma once
 #include <string>
 #include <iostream>
-#include <map>
 #include <vector>
 #include <SFML/Graphics.hpp>
 #include "ResourceManager.hpp"
 #include "AnimationSystem.hpp"
-#include "AnimationData.hpp"
-
-class AnimationSystem;
+#include "Weapon.h"
 
 class Player
 {
-    enum class WeaponType { Flashlight, Handgun, Knife, Rifle, Shotgun };
-    enum class HumanState { Idle, MeleeAttack, Move, Reload, Shoot };
-
-
-    struct Weapon {
-        WeaponType type;
-        std::map<HumanState, AnimationData> animations;
-
-        void setAnimation(HumanState state, AnimationData animation) {
-            animations.emplace(state, animation);
-        }
-    };
-
 public:
     Player(int weaponIndex);
 
-    void update(float deltaTime) {
-        animation.update(deltaTime, currentWeapon.animations[currentState].frameDuration,
-            currentWeapon.animations[currentState].frameCount);
-    }
+    void Update(float deltaTime);
 
-    void draw(sf::RenderWindow& window) {
-        // Draw the current animation frame for the current state
-        auto textureId = currentWeapon.animations[currentState].name + std::to_string(animation.getCurrentFrame());
-        sf::Texture& texture = ResourceManager::getInstance().getTexture(textureId);
+    void Render(sf::RenderWindow& window);
 
-        // Set the sprite's position, scale, etc.
-        sprite.setTexture(texture);
-        window.draw(sprite);
-    }
+    void ChangeWeapon(const int id);
 
-    void changeWeapon(const int id) {
-        if (currentWeaponIndex >= 0 && currentWeaponIndex < weapons.size()) {
-            currentWeaponIndex = id;
-            currentWeapon = weapons[currentWeaponIndex];
-        }
-    }
+    void ChangeState(HumanState newState);
 
-    void changeState(HumanState newState) {
-        currentState = newState;
-        // Reset the frame and frame timer when changing states
-        animation.resetFrame();
-    }
+    void UpdateLookToMousePosition(float deltaTime);
 
 private:
-	void init();
+	void Init();
     sf::Sprite sprite;
     AnimationSystem animation;
 

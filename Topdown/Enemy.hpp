@@ -10,9 +10,10 @@ class Enemy
 public:
     Enemy();
     ~Enemy();
-    void update(float deltaTime);
+    void Update(float deltaTime);
     AnimationData& currentAnimaitonData();
     void draw(sf::RenderWindow& window);
+    void changeState(ZombieState newState);
 
 private:
     void init();

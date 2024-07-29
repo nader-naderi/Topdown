@@ -34,61 +34,27 @@ void Game::InitWindow()
 	this->window->setFramerateLimit(60);
 }
 
-
-void Game::PollEvents()
-{
-	while (this->window->pollEvent(this->m_event))
-	{
-		switch (m_event.type)
-		{
-		case sf::Event::Closed:
-			this->window->close();
-			break;
-		case sf::Event::KeyPressed:
-			if (this->m_event.key.code == sf::Keyboard::Escape)
-				this->window->close();
-			break;
-		}
-	}
-}
-
-void Game::UpdateMousePositions()
-{
-	this->m_mousePositionWindow = sf::Mouse::getPosition(*this->window);
-	this->m_mousePositionView = this->window->mapPixelToCoords(this->m_mousePositionWindow);
-}
-
-
-void Game::HandlePlayerClickCheck()
-{
-	if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
-	{
-		if (!this->mouseHeld)
-		{
-
-		}
-	}
-	else
-		this->mouseHeld = false;
-}
-
 void Game::Update()
 {
+	auto InputManager = InputManager::GetInstance();
+
+	InputManager->Update(window);
+
 	elapsedTime = clock.restart();
 	deltaTime = elapsedTime.asSeconds();
 
-	player.update(deltaTime);
-	enemy.update(deltaTime);
+	player.Update(deltaTime);
+	enemy.Update(deltaTime);
 
-	this->PollEvents();
-	this->UpdateMousePositions();
+	if(InputManager->GetKeyDown(sf::Keyboard::Escape))
+		window->close();
 }
 
 void Game::Render()
 {
 	this->window->clear();
 	
-	player.draw(*window);
+	player.Render(*window);
 	enemy.draw(*window);
 
 	this->window->display();

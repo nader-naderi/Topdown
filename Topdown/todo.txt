@@ -1,0 +1,6 @@
+- Animation System
+- player:
+	- animations with spritesheet
+	- states
+- Game class
+- Enemy
