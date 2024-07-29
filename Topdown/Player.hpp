@@ -7,11 +7,12 @@
 #include "AnimationSystem.hpp"
 #include "Weapon.h"
 #include "InputManager.h"
+#include "Entity.h"
 
-class Player
+class Player : public Entity
 {
 public:
-    Player(int weaponIndex);
+    Player();
 
     void InitializeSprite();
 

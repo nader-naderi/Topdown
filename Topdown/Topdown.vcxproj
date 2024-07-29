@@ -134,25 +134,32 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="AnimationSystem.cpp" />
+    <ClCompile Include="Component.cpp" />
     <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="Entity.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="ResourceManager.cpp" />
+    <ClCompile Include="SpriteComponent.cpp" />
     <ClCompile Include="Weapon.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AnimationData.hpp" />
     <ClInclude Include="AnimationSystem.hpp" />
+    <ClInclude Include="Component.h" />
     <ClInclude Include="Enemy.hpp" />
+    <ClInclude Include="Entity.h" />
     <ClInclude Include="Game.hpp" />
     <ClInclude Include="HumanState.h" />
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="Mathf.h" />
     <ClInclude Include="Player.hpp" />
     <ClInclude Include="ResourceManager.hpp" />
+    <ClInclude Include="SpriteComponent.h" />
     <ClInclude Include="StaticFiles.hpp" />
+    <ClInclude Include="TransformComponent.h" />
     <ClInclude Include="Weapon.h" />
   </ItemGroup>
   <ItemGroup>

@@ -14,7 +14,7 @@ private:
 	sf::Time elapsedTime;
 	float deltaTime;
 	sf::Sprite tile;
-	Player player = { 0 };
+	Player player;
 	Enemy enemy;
 
 	void InitVariables();

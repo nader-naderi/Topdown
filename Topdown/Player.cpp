@@ -2,11 +2,11 @@
 #include "StaticFiles.hpp"
 #include "Mathf.h"
 
-Player::Player(int weaponIndex)
+Player::Player() : Entity()
 {
 	Init();
 
-	currentWeaponIndex = weaponIndex;
+	currentWeaponIndex = 0;
 
 	if (currentWeaponIndex >= 0 && currentWeaponIndex < weapons.size()) {
 		currentWeapon = weapons[currentWeaponIndex];
