@@ -149,6 +149,7 @@
     <ClInclude Include="Game.hpp" />
     <ClInclude Include="HumanState.h" />
     <ClInclude Include="InputManager.h" />
+    <ClInclude Include="Mathf.h" />
     <ClInclude Include="Player.hpp" />
     <ClInclude Include="ResourceManager.hpp" />
     <ClInclude Include="StaticFiles.hpp" />

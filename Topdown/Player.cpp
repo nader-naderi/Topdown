@@ -1,4 +1,6 @@
 #include "Player.hpp"
+#include "StaticFiles.hpp"
+#include "Mathf.h"
 
 Player::Player(int weaponIndex)
 {
@@ -13,9 +15,22 @@ Player::Player(int weaponIndex)
 		// Handle invalid index, e.g., throw an exception, assign a default weapon, or log an error.
 	}
 
-	sprite.setOrigin(sf::Vector2f(0.0f, 0.0f));  // Adjust the origin as needed
-	sprite.setPosition(1280 / 2, 720 / 2);  // Set the player's position (x, y)
+	InitializeSprite();
+}
+
+void Player::InitializeSprite()
+{
+	sprite.setPosition(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2);  // Set the player's position (x, y)
 	sprite.setScale(0.5f, 0.5f);
+
+	auto textureId = currentWeapon.animations[currentState].name + std::to_string(animation.getCurrentFrame());
+	sf::Texture& texture = ResourceManager::getInstance().getTexture(textureId);
+
+	// Set the sprite's position, scale, etc.
+	sprite.setTexture(texture);
+
+	sprite.setOrigin(sf::Vector2f(sprite.getTexture()->getSize().x / 2,
+		sprite.getTexture()->getSize().y / 2));  // Adjust the origin as needed
 }
 
 void Player::Update(float deltaTime)
@@ -23,7 +38,8 @@ void Player::Update(float deltaTime)
 	animation.update(deltaTime, currentWeapon.animations[currentState].frameDuration,
 		currentWeapon.animations[currentState].frameCount);
 
-	UpdateLookToMousePosition(deltaTime);
+	UpdatePlayerLook(deltaTime);
+	UpdatePlayerMovement(deltaTime);
 }
 
 void Player::Render(sf::RenderWindow& window)
@@ -35,6 +51,7 @@ void Player::Render(sf::RenderWindow& window)
 	// Set the sprite's position, scale, etc.
 	sprite.setTexture(texture);
 	window.draw(sprite);
+	
 }
 
 void Player::ChangeWeapon(const int id) {
@@ -50,9 +67,25 @@ void Player::ChangeState(HumanState newState) {
 	animation.resetFrame();
 }
 
-void Player::UpdateLookToMousePosition(float deltaTime)
+void Player::UpdatePlayerLook(float deltaTime)
 {
-	
+	// Get the player's sprite position.
+	sf::Vector2f playerPosition = sprite.getPosition();
+
+	// Get the mouse position releative to the view.
+	sf::Vector2f mousePosition = inputManager->GetMousePositionView();
+	mousePosition.y = WINDOW_HEIGHT - mousePosition.y;
+
+	float angle = calculateRotationAngle(playerPosition, mousePosition);
+	sprite.setRotation(-angle);
+}
+
+void Player::UpdatePlayerMovement(float deltaTime)
+{
+	sf::Vector2f moveDirection = inputManager->GetAxis("Horizontal") + inputManager->GetAxis("Vertical");
+	std::cout << moveDirection.x << ", " << moveDirection.y << std::endl;
+
+	sprite.move(moveDirection * deltaTime * playerMoveSpeed);
 }
 
 void Player::Init()

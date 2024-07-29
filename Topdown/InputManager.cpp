@@ -40,6 +40,40 @@ void InputManager::PollEvents(sf::RenderWindow* window)
  bool InputManager::GetMouseButton(sf::Mouse::Button button) { return sf::Mouse::isButtonPressed(button); }
 
  bool InputManager::GetKeyDown(sf::Keyboard::Key key) { return m_keysPressed.find(key) != m_keysPressed.end(); }
+ bool InputManager::GetKey(sf::Keyboard::Key key) { return sf::Keyboard::isKeyPressed(key); }
+
+ sf::Vector2f InputManager::GetAxis(const std::string& axis)
+ {
+     sf::Vector2f value;
+
+     if (axis == "Horizontal")
+     {
+         value.x = 0.f;
+         if (GetKeyDown(sf::Keyboard::A))
+         {
+             value.x -= 1.f;
+         }
+         else if (GetKeyDown(sf::Keyboard::D))
+         {
+             value.x += 1.f;
+         }
+     }
+     else if (axis == "Vertical")
+     {
+         value.y = 0.f;
+         if (GetKeyDown(sf::Keyboard::W))
+         {
+             value.y -= 1.f;
+         }
+         else if (GetKeyDown(sf::Keyboard::S))
+         {
+             value.y += 1.f;
+         }
+     }
+
+     return value;
+ }
+
 
  sf::Vector2i InputManager::GetMousePositionWindow() const { return m_mousePositionWindow; }
 

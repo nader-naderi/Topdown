@@ -1,6 +1,8 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include <unordered_set>
+#include <iostream>
+#include <string>
 
 class InputManager
 {
@@ -20,9 +22,12 @@ public:
 	bool GetMouseButton(sf::Mouse::Button button);
 	bool GetKeyDown(sf::Keyboard::Key key);
 
+	bool GetKey(sf::Keyboard::Key key);
+
+	sf::Vector2f GetAxis(const std::string& axis);
+
 	sf::Vector2i GetMousePositionWindow() const;
 	sf::Vector2f GetMousePositionView() const;
-
 
 private:
 	std::unordered_set<sf::Keyboard::Key> m_keysPressed;

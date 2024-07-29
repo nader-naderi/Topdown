@@ -6,11 +6,14 @@
 #include "ResourceManager.hpp"
 #include "AnimationSystem.hpp"
 #include "Weapon.h"
+#include "InputManager.h"
 
 class Player
 {
 public:
     Player(int weaponIndex);
+
+    void InitializeSprite();
 
     void Update(float deltaTime);
 
@@ -20,18 +23,19 @@ public:
 
     void ChangeState(HumanState newState);
 
-    void UpdateLookToMousePosition(float deltaTime);
+    void UpdatePlayerLook(float deltaTime);
+    void UpdatePlayerMovement(float deltaTime);
 
 private:
 	void Init();
     sf::Sprite sprite;
     AnimationSystem animation;
 
+    float playerMoveSpeed = 100;
     int currentWeaponIndex = -1;
 	Weapon currentWeapon;
 	HumanState currentState;
-
+    InputManager* inputManager = InputManager::GetInstance();
 	std::vector<Weapon> weapons;
-
 };
 
